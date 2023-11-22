@@ -2,10 +2,14 @@ import CurrentWeather from "./components/CurrentWeather";
 import Search from "./components/Search";
 import { WEATHER_API_KEY, WEATHER_API_URL } from "./api";
 import { useState } from "react";
+import Forecast from "./components/Forecast";
 
 const App = () => {
+  // State
   const [currentWeather, setCurrentWeather] = useState(null);
   const [forecast, setForecast] = useState(null);
+
+  // handleOnSearchChange
   const handleOnSearchChange = (searchData) => {
     const [lat, lon] = searchData.value.split(" ");
 
@@ -27,14 +31,15 @@ const App = () => {
       .catch((err) => console.log(err));
   };
 
-  console.log(currentWeather);
-  console.log(forecast);
-
   return (
-    <div className="container">
-      <Search onSearchChange={handleOnSearchChange} />
-      {currentWeather && <CurrentWeather data={currentWeather} />}
-    </div>
+    <main>
+      <h1>Daily City Weather</h1>
+      <div className="container">
+        <Search onSearchChange={handleOnSearchChange} />
+        {currentWeather && <CurrentWeather data={currentWeather} />}
+        {forecast && <Forecast data={forecast} />}
+      </div>
+    </main>
   );
 };
 
